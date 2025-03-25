@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
-import { collection, query, getDocs, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import { collection, query, getDocs, doc, updateDoc } from 'firebase/firestore';
 import './AdminPanel.css';
 
 const AdminPanel = () => {

@@ -8,7 +8,6 @@ import './EditPost.css';
 const EditPost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
@@ -27,7 +26,6 @@ const EditPost = () => {
           const postData = docSnap.data();
           setTitle(postData.title);
           setContent(postData.content);
-          setAuthor(postData.author);
           
           // Check if user is authorized to edit this post
           if (!currentUser) {
