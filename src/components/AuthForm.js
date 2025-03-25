@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './authForm.css';
 
@@ -68,18 +68,20 @@ const AuthForm = ({ isLogin }) => {
           {isLogin ? (
             <>
               Don't have an account?{' '}
-              <a href="#" onClick={() => navigate('/signup')}>
+              <NavLink to="/signup" activeClassName="active">
                 Sign Up
-              </a>
+              </NavLink>
               <br />
-              <a href="#" onClick={() => navigate('/forgot-password')}>Forgot Password?</a>
+              <NavLink to="/forgot-password" activeClassName="active">
+                Forgot Password?
+              </NavLink>
             </>
           ) : (
             <>
               Already have an account?{' '}
-              <a href="#" onClick={() => navigate('/login')}>
+              <NavLink to="/login" activeClassName="active">
                 Login
-              </a>
+              </NavLink>
             </>
           )}
         </p>
