@@ -5,7 +5,7 @@ import './NavBar.css'; // Import the NavBar styles
 import { auth } from '../firebase/firebaseConfig';
 
 const NavBar = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, isAdmin } = useAuth();
 
   return (
     <nav className="navbar">
@@ -17,8 +17,14 @@ const NavBar = () => {
           <Link to="/" className="navbar-link">Home</Link>
           {currentUser ? (
             <>
-              <span className="navbar-welcome">Welcome, {currentUser.email}</span>
+              <span className="navbar-welcome">
+                Welcome, {currentUser.email}
+                {isAdmin && <span className="admin-badge">Admin</span>}
+              </span>
               <Link to="/create" className="navbar-link">Create Post</Link>
+              {isAdmin && (
+                <Link to="/admin" className="navbar-link admin-link">Admin Panel</Link>
+              )}
               <button className="navbar-btn" onClick={() => auth.signOut()}>Logout</button>
             </>
           ) : (

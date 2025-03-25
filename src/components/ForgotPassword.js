@@ -17,7 +17,11 @@ const ForgotPassword = () => {
       await sendPasswordResetEmailHandler(email);
       setSuccessMessage('Password reset email has been sent. Please check your inbox.');
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
+      if (error.message === 'auth/user-not-found') {
+        setErrorMessage('No account exists with this email address. Please check the email or sign up for a new account.');
+      } else {
+        setErrorMessage('An error occurred. Please try again.');
+      }
     }
   };
 

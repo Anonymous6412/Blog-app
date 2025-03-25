@@ -6,7 +6,9 @@ import BlogList from './components/BlogList';
 import CreatePost from './components/CreatePost';
 import AuthForm from './components/AuthForm';
 import BlogDetail from './components/BlogDetail';
-import ForgotPassword from './components/ForgotPassword';  // Import ForgotPassword Component
+import ForgotPassword from './components/ForgotPassword';
+import EditPost from './components/EditPost';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
           <Route path="/login" element={<AuthForm isLogin={true} />} />
           <Route path="/signup" element={<AuthForm isLogin={false} />} />
           <Route path="/post/:id" element={<BlogDetail />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add ForgotPassword route */}
+          <Route path="/edit/:id" element={<EditPost />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </Router>
     </AuthProvider>
