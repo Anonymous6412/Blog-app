@@ -1,0 +1,171 @@
+[debug] [2025-03-24T11:00:10.833Z] ----------------------------------------------------------------------
+[debug] [2025-03-24T11:00:10.837Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DataNova\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-03-24T11:00:10.837Z] CLI Version:   13.35.1
+[debug] [2025-03-24T11:00:10.838Z] Platform:      win32
+[debug] [2025-03-24T11:00:10.838Z] Node Version:  v22.13.1
+[debug] [2025-03-24T11:00:10.838Z] Time:          Mon Mar 24 2025 16:30:10 GMT+0530 (India Standard Time)
+[debug] [2025-03-24T11:00:10.838Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-24T11:00:10.851Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-24T11:00:10.851Z] > authorizing via signed-in user (ajay.y6412077@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\DataNova\Desktop\ReactBasics\24032025\blog-platform
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-03-24T11:04:38.911Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:38.911Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:38.913Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-03-24T11:04:39.722Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-03-24T11:04:39.722Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project authentication-app-dc9ac (Authentication-app) 
+[info] 
+=== Dataconnect Setup
+[debug] [2025-03-24T11:04:45.812Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:45.812Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:45.812Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/authentication-app-dc9ac/billingInfo [none]
+[debug] [2025-03-24T11:04:46.513Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/authentication-app-dc9ac/billingInfo 200
+[debug] [2025-03-24T11:04:46.514Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/authentication-app-dc9ac/billingInfo {"name":"projects/authentication-app-dc9ac/billingInfo","projectId":"authentication-app-dc9ac","billingAccountName":"","billingEnabled":false}
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2025-03-24T11:04:46.515Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:46.515Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:46.515Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com [none]
+[debug] [2025-03-24T11:04:46.515Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com x-goog-quota-user=projects/authentication-app-dc9ac
+[debug] [2025-03-24T11:04:48.394Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com 200
+[debug] [2025-03-24T11:04:48.394Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2025-03-24T11:04:48.395Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:48.395Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:48.395Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com:enable [none]
+[debug] [2025-03-24T11:04:48.395Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com:enable x-goog-quota-user=projects/authentication-app-dc9ac
+[debug] [2025-03-24T11:04:48.903Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com:enable 200
+[debug] [2025-03-24T11:04:48.903Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2025-03-24T11:04:58.914Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:58.915Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:04:58.915Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com [none]
+[debug] [2025-03-24T11:04:58.915Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com x-goog-quota-user=projects/authentication-app-dc9ac
+[debug] [2025-03-24T11:05:00.693Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com 200
+[debug] [2025-03-24T11:05:00.693Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/sqladmin.googleapis.com [omitted]
+[info] +  dataconnect: required API sqladmin.googleapis.com is enabled 
+[info] +  Wrote dataconnect\dataconnect.yaml 
+[info] +  Wrote dataconnect\schema\schema.gql 
+[info] +  Wrote dataconnect\connector\connector.yaml 
+[info] +  Wrote dataconnect\connector\queries.gql 
+[info] +  Wrote dataconnect\connector\mutations.gql 
+[info] +  Detected WEB app in directory C:\Users\DataNova\Desktop\ReactBasics\24032025\blog-platform 
+[info] i  Detected react app. Enabling react generated SDKs. 
+[info] i  Wrote new config to C:\Users\DataNova\Desktop\ReactBasics\24032025\blog-platform\dataconnect\connector/connector.yaml 
+[info] i  dataconnect: downloading dataconnect-emulator-1.9.2.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-1.9.2.exe..."}}
+[debug] [2025-03-24T11:05:27.435Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.9.2 
+[debug] [2025-03-24T11:05:27.970Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.9.2 200
+[debug] [2025-03-24T11:05:27.970Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-v1.9.2 [stream]
+[debug] [2025-03-24T11:05:32.270Z] defaultcredentials: writing to file C:\Users\DataNova\AppData\Roaming\firebase\ajay_y6412077_gmail.com_application_default_credentials.json
+[debug] [2025-03-24T11:05:32.285Z] Setting GAC to C:\Users\DataNova\AppData\Roaming\firebase\ajay_y6412077_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"dataconnect"},"message":"Setting GAC to C:\\Users\\DataNova\\AppData\\Roaming\\firebase\\ajay_y6412077_gmail.com_application_default_credentials.json"}}
+[info] I0324 16:35:33.060117   17244 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\DataNova\\Desktop\\ReactBasics\\24032025\\blog-platform\\dataconnect-generated\\js\\default-connector"
+I0324 16:35:33.066041   17244 generate.go:40] Generated all sources. Writing them to disk...
+I0324 16:35:33.074054   17244 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\DataNova\\Desktop\\ReactBasics\\24032025\\blog-platform\\dataconnect-generated\\js\\default-connector"
+Generated sources: react\esm\package.json [17B] react\esm\index.esm.js [0B] README.md [2800B] react\index.d.ts [228B] react\package.json [468B] index.cjs.js [152B] package.json [895B] react\index.cjs.js [0B] react\README.md [5443B] index.d.ts [246B] esm\index.esm.js [116B] esm\package.json [17B] 
+I0324 16:35:33.139114   17244 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+
+[info] i  Generated SDK code for default 
+[info] i  Visit https://firebase.google.com/docs/data-connect/web-sdk#react for more information on how to set up React Generated SDKs for Firebase Data Connect 
+[info] +  If you'd like to add more generated SDKs to your app your later, run firebase init dataconnect:sdk again 
+[info] i  If you'd like to provision a CloudSQL Postgres instance on the Firebase Data Connect no-cost trial:
+1. Please upgrade to the pay-as-you-go (Blaze) billing plan. Visit the following page:
+     https://console.firebase.google.com/project/authentication-app-dc9ac/usage/details
+2. Run firebase init dataconnect again to configure the Cloud SQL instance.
+3. Run firebase deploy --only dataconnect to deploy your Data Connect service. 
+[info] 
+=== Firestore Setup
+[debug] [2025-03-24T11:05:43.420Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:43.421Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:43.421Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/firestore.googleapis.com [none]
+[debug] [2025-03-24T11:05:43.421Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/firestore.googleapis.com x-goog-quota-user=projects/authentication-app-dc9ac
+[debug] [2025-03-24T11:05:45.204Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/firestore.googleapis.com 200
+[debug] [2025-03-24T11:05:45.204Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/authentication-app-dc9ac/services/firestore.googleapis.com [omitted]
+[debug] [2025-03-24T11:05:45.204Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:45.204Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:45.204Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default) [none]
+[debug] [2025-03-24T11:05:46.962Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default) 200
+[debug] [2025-03-24T11:05:46.962Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default) {"name":"projects/authentication-app-dc9ac/databases/(default)","uid":"2c4a2ad0-0d89-4b38-9bfa-63f072b85510","createTime":"2025-03-21T16:29:36.344620Z","updateTime":"2025-03-21T16:29:36.344620Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2025-03-24T10:05:44.866718Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"etag":"IOHSva/JoowDMOrcyc+ioowD"}
+[debug] [2025-03-24T11:05:46.962Z] database_type: FIRESTORE_NATIVE
+[debug] [2025-03-24T11:05:46.962Z] database_type: FIRESTORE_NATIVE
+[debug] [2025-03-24T11:05:46.962Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-24T11:05:46.963Z] > authorizing via signed-in user (ajay.y6412077@gmail.com)
+[debug] [2025-03-24T11:05:46.963Z] [iam] checking project authentication-app-dc9ac for permissions ["firebase.projects.get"]
+[debug] [2025-03-24T11:05:46.963Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:46.963Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:46.963Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/authentication-app-dc9ac:testIamPermissions [none]
+[debug] [2025-03-24T11:05:46.963Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/authentication-app-dc9ac:testIamPermissions x-goog-quota-user=projects/authentication-app-dc9ac
+[debug] [2025-03-24T11:05:46.963Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/authentication-app-dc9ac:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-03-24T11:05:48.439Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/authentication-app-dc9ac:testIamPermissions 200
+[debug] [2025-03-24T11:05:48.439Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/authentication-app-dc9ac:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2025-03-24T11:05:48.446Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:48.446Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:48.447Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/authentication-app-dc9ac/releases pageSize=10&pageToken=
+[debug] [2025-03-24T11:05:50.011Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/authentication-app-dc9ac/releases 200
+[debug] [2025-03-24T11:05:50.011Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/authentication-app-dc9ac/releases {"releases":[{"name":"projects/authentication-app-dc9ac/releases/cloud.firestore","rulesetName":"projects/authentication-app-dc9ac/rulesets/d7c44cb5-8ca2-402f-b964-ddb069682009","createTime":"2025-03-21T16:29:43.395856Z","updateTime":"2025-03-21T16:29:43.395856Z"}]}
+[debug] [2025-03-24T11:05:50.011Z] Found ruleset: projects/authentication-app-dc9ac/rulesets/d7c44cb5-8ca2-402f-b964-ddb069682009
+[debug] [2025-03-24T11:05:50.011Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:50.011Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:05:50.012Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/authentication-app-dc9ac/rulesets/d7c44cb5-8ca2-402f-b964-ddb069682009 [none]
+[debug] [2025-03-24T11:05:50.528Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/authentication-app-dc9ac/rulesets/d7c44cb5-8ca2-402f-b964-ddb069682009 200
+[debug] [2025-03-24T11:05:50.528Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/authentication-app-dc9ac/rulesets/d7c44cb5-8ca2-402f-b964-ddb069682009 [omitted]
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2025-03-24T11:07:22.350Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:07:22.351Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:07:22.351Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:07:22.351Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:07:22.351Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-03-24T11:07:22.353Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-03-24T11:07:24.109Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2025-03-24T11:07:24.109Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2025-03-24T11:07:24.166Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2025-03-24T11:07:24.166Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/authentication-app-dc9ac/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/authentication-app-dc9ac/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] 
+=== Hosting Setup
+[debug] [2025-03-24T11:07:24.169Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:07:24.169Z] Checked if tokens are valid: true, expires at: 1742817586717
+[debug] [2025-03-24T11:07:24.169Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/authentication-app-dc9ac [none]
+[debug] [2025-03-24T11:07:24.618Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/authentication-app-dc9ac 200
+[debug] [2025-03-24T11:07:24.618Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/authentication-app-dc9ac {"projectId":"authentication-app-dc9ac","projectNumber":"1054197026602","displayName":"Authentication-app","name":"projects/authentication-app-dc9ac","resources":{"hostingSite":"authentication-app-dc9ac","realtimeDatabaseInstance":"authentication-app-dc9ac-default-rtdb"},"state":"ACTIVE","etag":"1_06d13f49-b4cc-4cb6-8a80-9f189c26747f"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2025-03-24T11:07:48.702Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2025-03-24T11:07:48.804Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2025-03-24T11:07:48.804Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"11.5.0","browserURL":"https://www.gstatic.com/firebasejs/11.5.0/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/11.5.0/firebase.tgz"},"live":{"version":"11.5","browserURL":"https://www.gstatic.com/firebasejs/live/11.5/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/11.5/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/11.5.0/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/11.5.0/firebase-auth/cordova.js","auth/web-extension":"https://www.gstatic.com/firebasejs/11.5.0/firebase-auth/web-extension.js","functions":"https://www.gstatic.com/firebasejs/11.5.0/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/11.5.0/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/11.5.0/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/11.5.0/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/11.5.0/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/11.5.0/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/11.5.0/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js","vertexai":"https://www.gstatic.com/firebasejs/11.5.0/firebase-vertexai.js","data-connect":"https://www.gstatic.com/firebasejs/11.5.0/firebase-data-connect.js","firestore.memory":"https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.memory.js"}}
+[info] +  Wrote public/index.html 
+[info] 
+[info] i  Didn't detect a .git folder. Assuming C:\Users\DataNova\Desktop\ReactBasics\24032025\blog-platform is the project root. 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=840283759&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
