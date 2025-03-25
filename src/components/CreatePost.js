@@ -5,14 +5,15 @@ import { useAuth } from '../context/AuthContext';
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { createPost, currentUser } = useAuth();
+  const { createPost, currentUser, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!currentUser) {
+    // Only redirect if auth has finished loading and user is not logged in
+    if (!authLoading && !currentUser) {
       navigate('/login'); // Redirect to login if not authenticated
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate, authLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +24,9 @@ const CreatePost = () => {
       console.log('Error creating post:', error.message);
     }
   };
+
+  // Show a loading state or return null when auth is still loading
+  if (authLoading) return <p>Loading...</p>;
 
   return (
     <div className="container">
