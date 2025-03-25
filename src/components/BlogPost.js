@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const BlogPost = ({ title, content, author, id }) => {
-  const { currentUser, deletePost, isAdmin } = useAuth();
+  const { currentUser, deletePost, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleEdit = () => {
@@ -23,8 +23,8 @@ const BlogPost = ({ title, content, author, id }) => {
     }
   };
 
-  // Check if current user is the author or an admin
-  const canEditDelete = currentUser && (currentUser.email === author || isAdmin);
+  // Check if current user is the author or an admin, but only after auth has loaded
+  const canEditDelete = !authLoading && currentUser && (currentUser.email === author || isAdmin);
 
   return (
     <div className="blog-post">

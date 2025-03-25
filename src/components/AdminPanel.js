@@ -11,11 +11,14 @@ const AdminPanel = () => {
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const { currentUser, isAdmin } = useAuth();
+  const { currentUser, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   // Redirect non-admin users away from this page
   useEffect(() => {
+    // Only check once auth has finished loading
+    if (authLoading) return;
+    
     if (!currentUser) {
       navigate('/login');
       return;
@@ -27,7 +30,7 @@ const AdminPanel = () => {
     }
     
     fetchUsers();
-  }, [currentUser, isAdmin, navigate]);
+  }, [currentUser, isAdmin, navigate, authLoading]);
 
   const fetchUsers = async () => {
     try {

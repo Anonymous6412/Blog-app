@@ -10,7 +10,7 @@ const BlogDetail = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { currentUser, deletePost, isAdmin } = useAuth();
+  const { currentUser, deletePost, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,8 +51,8 @@ const BlogDetail = () => {
     }
   };
 
-  // Check if current user is the author or an admin
-  const canEditDelete = currentUser && post && (currentUser.email === post.author || isAdmin);
+  // Check if current user is the author or an admin, but only if auth has loaded
+  const canEditDelete = !authLoading && currentUser && post && (currentUser.email === post.author || isAdmin);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="error-message">{error}</p>;

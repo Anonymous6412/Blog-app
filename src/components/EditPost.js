@@ -12,11 +12,20 @@ const EditPost = () => {
   const [error, setError] = useState('');
   
   const { id } = useParams();
-  const { currentUser, editPost, isAdmin } = useAuth();
+  const { currentUser, editPost, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Don't fetch post or redirect until authentication is loaded
+    if (authLoading) return;
+    
     const fetchPost = async () => {
+      // First check if user is logged in
+      if (!currentUser) {
+        navigate('/login');
+        return;
+      }
+      
       try {
         // Get post document
         const docRef = doc(db, 'posts', id);
@@ -28,11 +37,6 @@ const EditPost = () => {
           setContent(postData.content);
           
           // Check if user is authorized to edit this post
-          if (!currentUser) {
-            navigate('/login');
-            return;
-          }
-          
           if (currentUser.email !== postData.author && !isAdmin) {
             setError('You are not authorized to edit this post');
             navigate('/');
@@ -51,7 +55,7 @@ const EditPost = () => {
     };
 
     fetchPost();
-  }, [id, currentUser, navigate, isAdmin]);
+  }, [id, currentUser, navigate, isAdmin, authLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
