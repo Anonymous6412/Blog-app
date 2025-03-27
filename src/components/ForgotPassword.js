@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import './ForgotPassword.css'; // Add custom styling if needed
+import './ForgotPassword.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const { sendPasswordResetEmailHandler } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
+    setLoading(true);
 
     try {
-      // Let Firebase handle the email verification
+      // Directly send the reset email and let Firebase handle it
       await sendPasswordResetEmailHandler(email);
-      setSuccessMessage('Password reset email has been sent. Please check your inbox.');
+      
+      // Always show success message (Firebase doesn't reliably tell us if the email exists)
+      setSuccessMessage('If an account exists with this email, a password reset link will be sent to your inbox.');
     } catch (error) {
       console.error("Password reset error:", error);
-      if (error.code === 'auth/user-not-found') {
-        setErrorMessage('No account exists with this email address. Please check the email or sign up for a new account.');
-      } else {
-        setErrorMessage('An error occurred. Please try again.');
-      }
+      // Don't expose whether the account exists or not for security
+      setErrorMessage('An error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,9 +41,12 @@ const ForgotPassword = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
           />
         </div>
-        <button type="submit">Send Reset Link</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Processing...' : 'Send Reset Link'}
+        </button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
       </form>

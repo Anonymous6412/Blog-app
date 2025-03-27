@@ -26,11 +26,12 @@ const AuthForm = ({ isLogin }) => {
       }
     } catch (error) {
       // Handle Errors
-      if (error.message === 'auth/email-already-in-use') {
+      console.error("Auth error:", error);
+      if (error.code === 'auth/email-already-in-use') {
         setErrorMessage('This email is already registered. Please use a different one.');
-      } else if (error.message === 'auth/user-not-found') {
+      } else if (error.code === 'auth/user-not-found') {
         setErrorMessage('No account found with this email. Please register.');
-      } else if (error.message === 'auth/wrong-password') {
+      } else if (error.code === 'auth/wrong-password') {
         setErrorMessage('Incorrect password. Please try again.');
       } else {
         setErrorMessage('An error occurred. Please try again.');

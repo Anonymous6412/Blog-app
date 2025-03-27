@@ -72,10 +72,8 @@ export const AuthProvider = ({ children }) => {
       
       return userCredential.user;
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        throw new Error('auth/email-already-in-use');
-      }
-      throw new Error('An error occurred. Please try again.');
+      console.error("Registration error:", error);
+      throw error;
     }
   };
 
@@ -86,13 +84,8 @@ export const AuthProvider = ({ children }) => {
       setCurrentUser(userCredential.user);
       return userCredential.user;
     } catch (error) {
-      if (error.code === 'auth/user-not-found') {
-        throw new Error('auth/user-not-found');
-      }
-      if (error.code === 'auth/wrong-password') {
-        throw new Error('auth/wrong-password');
-      }
-      throw new Error('An error occurred. Please try again.');
+      console.error("Login error:", error);
+      throw error;
     }
   };
 
