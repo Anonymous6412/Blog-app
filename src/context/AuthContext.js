@@ -96,23 +96,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Check if email exists before sending password reset
+  // Send password reset email
   const sendPasswordResetEmailHandler = async (email) => {
     try {
-      // Check if the email exists
-      const methods = await fetchSignInMethodsForEmail(auth, email);
-      if (methods.length === 0) {
-        // No account found with this email
-        throw new Error('auth/user-not-found');
-      }
-      
-      // Send password reset email if email exists
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
-      if (error.code === 'auth/user-not-found' || error.message === 'auth/user-not-found') {
-        throw new Error('auth/user-not-found');
-      }
-      throw new Error('An error occurred while sending the reset email. Please try again.');
+      console.error("Firebase password reset error:", error);
+      // Pass the original error with code intact
+      throw error;
     }
   };
 
