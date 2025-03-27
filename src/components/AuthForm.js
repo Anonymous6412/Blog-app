@@ -7,6 +7,8 @@ const AuthForm = ({ isLogin }) => {
   const { registerUserWithEmailAndPassword, loginUserWithEmailAndPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [mobile, setMobile] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -18,11 +20,18 @@ const AuthForm = ({ isLogin }) => {
       if (isLogin) {
         // Handle Login
         await loginUserWithEmailAndPassword(email, password);
-        navigate('/dashboard'); // Redirect to dashboard or home
+        navigate('/'); // Redirect to home
       } else {
         // Handle Sign-Up
-        await registerUserWithEmailAndPassword(email, password);
-        navigate('/dashboard'); // Redirect to dashboard or home
+        // Validate mobile number format
+        const mobileRegex = /^\d{10}$/;
+        if (!mobileRegex.test(mobile)) {
+          setErrorMessage('Please enter a valid 10-digit mobile number.');
+          return;
+        }
+        
+        await registerUserWithEmailAndPassword(email, password, name, mobile);
+        navigate('/'); // Redirect to home
       }
     } catch (error) {
       // Handle Errors
@@ -43,6 +52,29 @@ const AuthForm = ({ isLogin }) => {
     <div className="auth-form">
       <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
       <form onSubmit={handleSubmit}>
+        {!isLogin && (
+          <>
+            <div className="form-group">
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="tel"
+                placeholder="Mobile Number (10 digits)"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                pattern="[0-9]{10}"
+                required
+              />
+            </div>
+          </>
+        )}
         <div className="form-group">
           <input
             type="email"

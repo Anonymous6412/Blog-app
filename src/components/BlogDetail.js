@@ -61,9 +61,16 @@ const BlogDetail = () => {
   return (
     <div className="blog-detail">
       <h2>{post.title}</h2>
-      <p className="author"><strong>By:</strong> {post.author}</p>
+      <div className="post-meta">
+        <p><strong>By:</strong> {post.author}</p>
+        {post.createdAt && (
+          <p><strong>Posted on:</strong> {new Date(post.createdAt).toLocaleDateString()}</p>
+        )}
+      </div>
       <div className="content">
-        <p>{post.content}</p>
+        {post.content.split('\n').map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
       </div>
       
       {canEditDelete && (

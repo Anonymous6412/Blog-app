@@ -98,8 +98,12 @@ const EditPost = () => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             rows="10"
+            placeholder="Use line breaks to create paragraphs and formatting"
             required
           ></textarea>
+          <small className="text-muted">
+            Press Enter twice to create a new paragraph. Your formatting will be preserved when displayed.
+          </small>
         </div>
         <div className="form-actions">
           <button type="submit" className="save-btn">Save Changes</button>

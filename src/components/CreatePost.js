@@ -18,7 +18,12 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createPost({ title, content, author: currentUser.email }); // Store the current user's email as author
+      await createPost({ 
+        title, 
+        content, 
+        author: currentUser.email,
+        createdAt: new Date().toISOString() // Add creation date
+      });
       navigate('/'); // Navigate back to homepage after post is created
     } catch (error) {
       console.log('Error creating post:', error.message);
@@ -51,12 +56,15 @@ const CreatePost = () => {
               <textarea
                 className="form-control"
                 id="content"
-                rows="5"
-                placeholder="Enter post content"
+                rows="10"
+                placeholder="Enter post content. Use line breaks to create paragraphs and formatting."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 required
               />
+              <small className="text-muted">
+                Press Enter twice to create a new paragraph. Your formatting will be preserved when displayed.
+              </small>
             </div>
             <button type="submit" className="btn btn-primary w-100">
               Create Post

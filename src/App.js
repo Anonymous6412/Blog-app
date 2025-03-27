@@ -9,6 +9,8 @@ import BlogDetail from './components/BlogDetail';
 import ForgotPassword from './components/ForgotPassword';
 import EditPost from './components/EditPost';
 import AdminPanel from './components/AdminPanel';
+import MyProfile from './components/MyProfile';
+import MyBlogs from './components/MyBlogs';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/edit/:id" element={<EditPost />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/my-blogs" element={<MyBlogs />} />
         </Routes>
       </Router>
     </AuthProvider>

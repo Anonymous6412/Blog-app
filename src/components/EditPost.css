@@ -35,6 +35,13 @@
   resize: vertical;
 }
 
+.text-muted {
+  color: #6c757d;
+  font-size: 0.875rem;
+  display: block;
+  margin-top: 5px;
+}
+
 .form-actions {
   display: flex;
   justify-content: space-between;

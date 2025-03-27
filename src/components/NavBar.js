@@ -22,6 +22,8 @@ const NavBar = () => {
                 {isAdmin && <span className="admin-badge">Admin</span>}
               </span>
               <Link to="/create" className="navbar-link">Create Post</Link>
+              <Link to="/my-blogs" className="navbar-link">My Blogs</Link>
+              <Link to="/profile" className="navbar-link">My Profile</Link>
               {isAdmin && (
                 <Link to="/admin" className="navbar-link admin-link">Admin Panel</Link>
               )}

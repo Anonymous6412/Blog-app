@@ -52,21 +52,27 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Register user with email and password
-  const registerUserWithEmailAndPassword = async (email, password) => {
+  const registerUserWithEmailAndPassword = async (email, password, name, mobile) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       setCurrentUser(userCredential.user);
       
-      // Create user document in Firestore
+      // Create user document in Firestore with additional data
       const userDocRef = doc(db, 'users', userCredential.user.uid);
       await updateDoc(userDocRef, {
         email: email,
-        isAdmin: false
+        name: name || '',
+        mobile: mobile || '',
+        isAdmin: false,
+        createdAt: new Date().toISOString()
       }).catch(() => {
         // If updateDoc fails (document doesn't exist), create it
         setDoc(userDocRef, {
           email: email,
-          isAdmin: false
+          name: name || '',
+          mobile: mobile || '',
+          isAdmin: false,
+          createdAt: new Date().toISOString()
         });
       });
       
