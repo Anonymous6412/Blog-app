@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { 
   onAuthStateChanged, 
   createUserWithEmailAndPassword, 
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const [inactivityTimer, setInactivityTimer] = useState(null);
 
   // Handle auto logout on inactivity
-  const resetInactivityTimer = () => {
+  const resetInactivityTimer = useCallback(() => {
     if (inactivityTimer) clearTimeout(inactivityTimer);
     
     // Set new timer if user is logged in
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
       }, INACTIVITY_TIMEOUT);
       setInactivityTimer(timer);
     }
-  };
+  }, [currentUser, inactivityTimer]);
 
   // Add event listeners for user activity
   useEffect(() => {
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         });
       };
     }
-  }, [currentUser]);
+  }, [currentUser, resetInactivityTimer]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

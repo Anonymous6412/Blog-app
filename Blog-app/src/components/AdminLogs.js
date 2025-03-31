@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -6,71 +6,59 @@ const AdminLogs = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const logsPerPage = 20;
-
-  const { 
-    currentUser, 
-    isAdmin, 
-    isSuperAdmin, 
-    getActivityLogs,
-    loading: authLoading 
-  } = useAuth();
-  
+  const [logsPerPage] = useState(10);
+  const { getActivityLogs, currentUser, isSuperAdmin } = useAuth();
   const navigate = useNavigate();
 
   // Redirect non-admin users away from this page
   useEffect(() => {
-    if (authLoading) return;
+    if (loading) return;
     
     if (!currentUser) {
       navigate('/login');
       return;
     }
     
-    if (!isAdmin && !isSuperAdmin) {
+    if (!isSuperAdmin) {
       navigate('/');
       return;
     }
     
     fetchLogs();
-  }, [currentUser, isAdmin, isSuperAdmin, navigate, authLoading, filter]);
+  }, [currentUser, isSuperAdmin, navigate, loading]);
 
-  const fetchLogs = async () => {
+  // Filter logs based on search term and filter type
+  const filteredLogs = logs.filter(log => {
+    const matchesSearch = 
+      log.userEmail?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      log.action?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (log.details && JSON.stringify(log.details).toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    if (filterType === 'all') return matchesSearch;
+    return matchesSearch && log.action === filterType;
+  });
+
+  // Fetch logs
+  const fetchLogs = useCallback(async () => {
     try {
       setLoading(true);
-      const fetchedLogs = await getActivityLogs();
-      
-      let filteredLogs = fetchedLogs;
-      
-      // Apply filter
-      if (filter !== 'all') {
-        filteredLogs = fetchedLogs.filter(log => log.action.includes(filter));
-      }
-      
-      // Apply search
-      if (searchTerm) {
-        const searchLower = searchTerm.toLowerCase();
-        filteredLogs = filteredLogs.filter(log => 
-          log.userEmail?.toLowerCase().includes(searchLower) ||
-          log.action?.toLowerCase().includes(searchLower) ||
-          JSON.stringify(log.details)?.toLowerCase().includes(searchLower)
-        );
-      }
-      
-      setLogs(filteredLogs);
-      setTotalPages(Math.ceil(filteredLogs.length / logsPerPage));
-      setCurrentPage(1);
-    } catch (err) {
-      console.error('Error fetching logs:', err);
+      const logsData = await getActivityLogs();
+      setLogs(logsData);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching logs:', error);
       setError('Failed to load activity logs. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
+  }, [getActivityLogs]);
+
+  useEffect(() => {
+    fetchLogs();
+  }, [fetchLogs]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -111,11 +99,11 @@ const AdminLogs = () => {
   // Pagination calculations
   const indexOfLastLog = currentPage * logsPerPage;
   const indexOfFirstLog = indexOfLastLog - logsPerPage;
-  const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog);
+  const currentLogs = filteredLogs.slice(indexOfFirstLog, indexOfLastLog);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (loading || authLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex justify-center items-center">
         <div className="text-lg text-indigo-600 animate-pulse flex flex-col items-center">
@@ -164,8 +152,8 @@ const AdminLogs = () => {
                 <div className="w-full md:w-64">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Filter by action</label>
                   <select
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
+                    value={filterType}
+                    onChange={(e) => setFilterType(e.target.value)}
                     className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   >
                     <option value="all">All Activities</option>
@@ -210,7 +198,7 @@ const AdminLogs = () => {
         
         {/* Logs Table */}
         <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 overflow-hidden">
-          {logs.length > 0 ? (
+          {filteredLogs.length > 0 ? (
             <>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -254,8 +242,8 @@ const AdminLogs = () => {
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-gray-700">
                     Showing <span className="font-medium">{indexOfFirstLog + 1}</span> to{" "}
-                    <span className="font-medium">{Math.min(indexOfLastLog, logs.length)}</span> of{" "}
-                    <span className="font-medium">{logs.length}</span> logs
+                    <span className="font-medium">{Math.min(indexOfLastLog, filteredLogs.length)}</span> of{" "}
+                    <span className="font-medium">{filteredLogs.length}</span> logs
                   </div>
                   
                   <div className="flex space-x-2">
@@ -271,17 +259,17 @@ const AdminLogs = () => {
                       Previous
                     </button>
                     
-                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                    {Array.from({ length: Math.ceil(filteredLogs.length / logsPerPage) }, (_, i) => i + 1)
                       .filter(num => 
                         num === 1 || 
-                        num === totalPages || 
+                        num === Math.ceil(filteredLogs.length / logsPerPage) || 
                         (num >= currentPage - 1 && num <= currentPage + 1)
                       )
                       .map((number) => (
                         <React.Fragment key={number}>
                           {number > 1 && 
-                           number === totalPages && 
-                           currentPage < totalPages - 1 && (
+                           number === Math.ceil(filteredLogs.length / logsPerPage) && 
+                           currentPage < Math.ceil(filteredLogs.length / logsPerPage) - 1 && (
                             <span className="self-center">...</span>
                           )}
                           
@@ -296,7 +284,7 @@ const AdminLogs = () => {
                             {number}
                           </button>
                           
-                          {number < totalPages && 
+                          {number < Math.ceil(filteredLogs.length / logsPerPage) && 
                            number === 1 && 
                            currentPage > 2 && (
                             <span className="self-center">...</span>
@@ -306,9 +294,9 @@ const AdminLogs = () => {
                       
                     <button
                       onClick={() => paginate(currentPage + 1)}
-                      disabled={currentPage === totalPages}
+                      disabled={currentPage === Math.ceil(filteredLogs.length / logsPerPage)}
                       className={`px-3 py-1 rounded ${
-                        currentPage === totalPages
+                        currentPage === Math.ceil(filteredLogs.length / logsPerPage)
                           ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                           : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
                       }`}

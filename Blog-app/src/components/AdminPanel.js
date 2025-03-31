@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
-import { collection, query, getDocs, doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
+import { collection, query, getDocs, doc, updateDoc, getDoc, setDoc, where } from 'firebase/firestore';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +26,7 @@ const AdminPanel = () => {
     currentUser, 
     isAdmin, 
     isSuperAdmin, 
-    toggleAdminStatus, 
+    toggleAdminStatus,
     updateUserPermissions,
     getLoginLogs,
     loading: authLoading 
@@ -229,29 +229,63 @@ const AdminPanel = () => {
     }, 3000);
   };
 
-  const initialiseSuperAdmin = async () => {
-    if (!currentUser) return;
-    
+  // Initialize super admin if needed
+  const initialiseSuperAdmin = useCallback(async () => {
     try {
-      // Check if current user is the first user
-      const usersCollection = collection(db, 'users');
-      const usersSnapshot = await getDocs(usersCollection);
+      if (!currentUser || !isSuperAdmin) return;
       
-      if (usersSnapshot.docs.length === 1) {
-        // If only one user exists, make them super admin
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        await updateDoc(userDocRef, {
-          isAdmin: true,
-          isSuperAdmin: true
-        });
+      console.log("Checking super admin initialization...");
+      
+      const usersRef = collection(db, 'users');
+      const q = query(usersRef, where("email", "==", currentUser.email));
+      const querySnapshot = await getDocs(q);
+      
+      if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
         
-        // Update the local state to reflect this change
-        window.location.reload();
+        if (!userData.isSuperAdmin) {
+          console.log("Setting current user as super admin");
+          await updateDoc(doc(db, 'users', userDoc.id), {
+            isSuperAdmin: true,
+            isAdmin: true,
+          });
+          setMessage("Super admin status initialized.");
+        }
       }
     } catch (err) {
-      console.error('Error checking for super admin:', err);
+      console.error("Error initializing super admin:", err);
+      setError("Failed to initialize super admin status.");
     }
-  };
+  }, [currentUser, isSuperAdmin]);
+
+  // Fetch login logs
+  const fetchLoginLogs = useCallback(async () => {
+    try {
+      setLoading(true);
+      const logsCollection = collection(db, 'login_logs');
+      const logsSnapshot = await getDocs(logsCollection);
+      
+      const logs = logsSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      // Sort by timestamp (newest first)
+      const sortedLogs = logs.sort((a, b) => {
+        if (!a.timestamp) return 1;
+        if (!b.timestamp) return -1;
+        return b.timestamp - a.timestamp;
+      });
+      
+      setLoginLogs(sortedLogs);
+    } catch (err) {
+      console.error("Error fetching login logs:", err);
+      setError("Failed to load login activity.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   // Check if super admin exists, if not and this is the first user, make them super admin
   useEffect(() => {
@@ -263,25 +297,17 @@ const AdminPanel = () => {
     }
   }, [loading, users]);
 
-  // Fetch login logs
-  const fetchLoginLogs = async () => {
-    try {
-      setLoadingLogs(true);
-      const logs = await getLoginLogs();
-      setLoginLogs(logs);
-    } catch (error) {
-      console.error('Error fetching login logs:', error);
-      setError('Failed to load login logs. Please try again.');
-    } finally {
-      setLoadingLogs(false);
+  useEffect(() => {
+    if (!authLoading && currentUser && isSuperAdmin) {
+      initialiseSuperAdmin();
     }
-  };
+  }, [authLoading, currentUser, isSuperAdmin, initialiseSuperAdmin]);
 
   useEffect(() => {
-    if (isSuperAdmin) {
+    if (activeTab === 'activity' && currentUser && (isAdmin || isSuperAdmin)) {
       fetchLoginLogs();
     }
-  }, [isSuperAdmin]);
+  }, [activeTab, currentUser, isAdmin, isSuperAdmin, fetchLoginLogs]);
 
   // Render login logs section
   const renderLoginLogs = () => {

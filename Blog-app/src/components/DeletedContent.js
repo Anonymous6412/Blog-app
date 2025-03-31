@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { doc, deleteDoc } from 'firebase/firestore';
@@ -46,29 +46,27 @@ const DeletedContent = () => {
     fetchDeletedContent();
   }, [currentUser, isSuperAdmin, navigate, authLoading]);
 
-  const fetchDeletedContent = async () => {
+  const fetchDeletedContent = useCallback(async () => {
     try {
       setLoading(true);
-      
-      // Fetch both types of deleted content
-      const [users, posts] = await Promise.all([
-        getDeletedUsers(),
-        getDeletedPosts()
-      ]);
-      
-      console.log("Fetched deleted users:", users);
-      console.log("Fetched deleted posts:", posts);
-      
-      setDeletedUsers(users || []);
-      setDeletedPosts(posts || []);
       setError('');
+      
+      const users = await getDeletedUsers();
+      const posts = await getDeletedPosts();
+      
+      setDeletedUsers(users);
+      setDeletedPosts(posts);
     } catch (err) {
       console.error('Error fetching deleted content:', err);
       setError('Failed to load deleted content. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
+  }, [getDeletedUsers, getDeletedPosts]);
+
+  useEffect(() => {
+    fetchDeletedContent();
+  }, [fetchDeletedContent]);
 
   const handleSearch = (e) => {
     e.preventDefault();

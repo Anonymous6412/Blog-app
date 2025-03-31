@@ -21,12 +21,9 @@ const MyProfile = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
-  const [showPasswordField, setShowPasswordField] = useState(false);
   const [deletePassword, setDeletePassword] = useState('');
   const [showDeleteSection, setShowDeleteSection] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
