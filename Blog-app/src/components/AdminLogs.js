@@ -13,6 +13,21 @@ const AdminLogs = () => {
   const { getActivityLogs, currentUser, isSuperAdmin } = useAuth();
   const navigate = useNavigate();
 
+  // Fetch logs
+  const fetchLogs = useCallback(async () => {
+    try {
+      setLoading(true);
+      const logsData = await getActivityLogs();
+      setLogs(logsData);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching logs:', error);
+      setError('Failed to load activity logs. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }, [getActivityLogs]);
+  
   // Redirect non-admin users away from this page
   useEffect(() => {
     if (loading) return;
@@ -28,7 +43,7 @@ const AdminLogs = () => {
     }
     
     fetchLogs();
-  }, [currentUser, isSuperAdmin, navigate, loading]);
+  }, [currentUser, isSuperAdmin, navigate, loading, fetchLogs]);
 
   // Filter logs based on search term and filter type
   const filteredLogs = logs.filter(log => {
@@ -40,25 +55,6 @@ const AdminLogs = () => {
     if (filterType === 'all') return matchesSearch;
     return matchesSearch && log.action === filterType;
   });
-
-  // Fetch logs
-  const fetchLogs = useCallback(async () => {
-    try {
-      setLoading(true);
-      const logsData = await getActivityLogs();
-      setLogs(logsData);
-      setError('');
-    } catch (error) {
-      console.error('Error fetching logs:', error);
-      setError('Failed to load activity logs. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  }, [getActivityLogs]);
-
-  useEffect(() => {
-    fetchLogs();
-  }, [fetchLogs]);
 
   const handleSearch = (e) => {
     e.preventDefault();

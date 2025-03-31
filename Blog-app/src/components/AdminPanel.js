@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/firebaseConfig';
-import { collection, query, getDocs, doc, updateDoc, getDoc, setDoc, where } from 'firebase/firestore';
+import {
+  collection, query, where, getDocs, updateDoc, doc
+} from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);

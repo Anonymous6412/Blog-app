@@ -7,7 +7,7 @@ import { db } from '../firebase/firebaseConfig';
 const DeletedContent = () => {
   const [deletedUsers, setDeletedUsers] = useState([]);
   const [deletedPosts, setDeletedPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('users');
   const [searchTerm, setSearchTerm] = useState('');
