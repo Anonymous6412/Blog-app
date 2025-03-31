@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { NavLink, useNavigate } from 'react-router-dom';
 
 const VerifyEmail = () => {
   const { currentUser, resendEmailVerification } = useAuth();
@@ -8,7 +8,6 @@ const VerifyEmail = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isResending, setIsResending] = useState(false);
   const [countdown, setCountdown] = useState(0);
-  const navigate = useNavigate();
 
   useEffect(() => {
     // If countdown is active, decrease it every second

@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
         });
       };
     }
-  }, [currentUser]);
+  }, [currentUser, inactivityTimer, resetInactivityTimer]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

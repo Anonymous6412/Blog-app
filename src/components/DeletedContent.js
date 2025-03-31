@@ -42,7 +42,7 @@ const DeletedContent = () => {
     }
     
     fetchDeletedContent();
-  }, [currentUser, isSuperAdmin, navigate, authLoading]);
+  }, [currentUser, isSuperAdmin, navigate, authLoading, fetchDeletedContent]);
 
   const fetchDeletedContent = async () => {
     try {

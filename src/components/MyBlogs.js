@@ -11,7 +11,6 @@ const MyBlogs = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
 
   // Process the content for preview
   const getContentPreview = (text) => {
@@ -74,7 +73,6 @@ const MyBlogs = () => {
     if (!confirmDelete) return;
     
     try {
-      setIsDeleting(true);
       await deletePost(postId, true); // Use soft delete so post goes to deleted_posts collection
       // Remove the deleted post from the posts array
       setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
@@ -83,8 +81,6 @@ const MyBlogs = () => {
     } catch (err) {
       console.error('Error deleting post:', err);
       setError(err.message || 'Failed to delete post. Please try again.');
-    } finally {
-      setIsDeleting(false);
     }
   };
 

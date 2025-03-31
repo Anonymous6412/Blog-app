@@ -6,28 +6,20 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const MyProfile = () => {
   const { currentUser, loading: authLoading, updateUserProfile, deleteMyAccount, userPermissions } = useAuth();
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-    createdAt: ''
-  });
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
+  const [editData, setEditData] = useState({});
+  const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({
-    name: '',
-    mobile: ''
-  });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [isSaving, setIsSaving] = useState(false);
   const [showPasswordField, setShowPasswordField] = useState(false);
   const [deletePassword, setDeletePassword] = useState('');
   const [showDeleteSection, setShowDeleteSection] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Redirect if not logged in
@@ -41,7 +33,7 @@ const MyProfile = () => {
       if (!currentUser) return;
       
       try {
-        setIsLoading(true);
+        setLoading(true);
         const userDocRef = doc(db, 'users', currentUser.uid);
         const userDoc = await getDoc(userDocRef);
         
@@ -78,7 +70,7 @@ const MyProfile = () => {
         console.error('Error fetching user data:', error);
         setError('Failed to load profile data.');
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
@@ -171,7 +163,7 @@ const MyProfile = () => {
     }
   };
 
-  if (authLoading || isLoading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-purple-50 to-pink-50 flex justify-center items-center">
         <div className="text-lg text-indigo-600 animate-pulse flex flex-col items-center">

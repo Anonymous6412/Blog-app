@@ -8,7 +8,6 @@ const BlogPost = ({ title, content, author, id, createdAt, onDelete, showControl
   const { currentUser, deletePost, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [authorName, setAuthorName] = useState(author);
-  const [loading, setLoading] = useState(true);
 
   // Fetch author's name from Firestore
   useEffect(() => {
@@ -16,7 +15,6 @@ const BlogPost = ({ title, content, author, id, createdAt, onDelete, showControl
       // Skip if the author is 'Anonymous'
       if (author === 'Anonymous') {
         setAuthorName('Anonymous');
-        setLoading(false);
         return;
       }
 
@@ -34,8 +32,6 @@ const BlogPost = ({ title, content, author, id, createdAt, onDelete, showControl
         }
       } catch (error) {
         console.error('Error fetching author name:', error);
-      } finally {
-        setLoading(false);
       }
     };
 

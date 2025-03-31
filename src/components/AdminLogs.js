@@ -24,20 +24,15 @@ const AdminLogs = () => {
 
   // Redirect non-admin users away from this page
   useEffect(() => {
-    if (authLoading) return;
+    if (!currentUser || loading) return;
     
-    if (!currentUser) {
-      navigate('/login');
-      return;
-    }
-    
-    if (!isAdmin && !isSuperAdmin) {
+    if (!isSuperAdmin) {
       navigate('/');
       return;
     }
     
     fetchLogs();
-  }, [currentUser, isAdmin, isSuperAdmin, navigate, authLoading, filter]);
+  }, [currentUser, isSuperAdmin, navigate, loading, fetchLogs]);
 
   const fetchLogs = async () => {
     try {

@@ -8,15 +8,11 @@ import { doc, getDoc } from 'firebase/firestore';
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [maxChars] = useState(10000);
   const [charCount, setCharCount] = useState(0);
-  const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [userName, setUserName] = useState('');
   const { currentUser, createPost, userPermissions } = useAuth();
@@ -131,9 +127,6 @@ const CreatePost = () => {
                 onClick={() => {
                   setTitle('');
                   setContent('');
-                  setImage(null);
-                  setPreviewUrl('');
-                  setTags([]);
                   setIsAnonymous(false);
                   setSuccess(false);
                 }}

@@ -278,10 +278,16 @@ const AdminPanel = () => {
   };
 
   useEffect(() => {
-    if (isSuperAdmin) {
+    if (!isSuperAdmin || !currentUser) return;
+    initialiseSuperAdmin();
+  }, [isSuperAdmin, currentUser, initialiseSuperAdmin]);
+
+  // For the login logs useEffect
+  useEffect(() => {
+    if (activeTab === 'logs' && !loadingLogs) {
       fetchLoginLogs();
     }
-  }, [isSuperAdmin]);
+  }, [activeTab, loadingLogs, fetchLoginLogs]);
 
   // Render login logs section
   const renderLoginLogs = () => {
