@@ -1,0 +1,72 @@
+/* NavBar Styles */
+.navbar {
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand {
+    font-size: 24px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .navbar-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-link:hover {
+    background-color: #f39c12;
+    border-radius: 5px;
+  }
+  
+  .navbar-welcome {
+    color: #fff;
+  }
+  
+  .navbar-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .admin-badge {
+    display: inline-block;
+    background-color: #ff5722;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 8px;
+    font-weight: bold;
+  }
+  
+  .admin-link {
+    background-color: #ff5722;
+    font-weight: bold;
+  }
+  

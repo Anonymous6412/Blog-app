@@ -25,8 +25,8 @@ A modern blog platform built with React and Firebase with comprehensive user man
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/blogapp.git
-   cd blogapp
+   git clone https://github.com/Anonymous6412/Blog-app.git
+   cd Blog-app
    ```
 
 2. Install dependencies:
@@ -41,8 +41,17 @@ A modern blog platform built with React and Firebase with comprehensive user man
    - Create a Firestore database
 
 4. Configure environment variables:
-   - Copy `.env.local.example` to `.env.local`
-   - Fill in your Firebase configuration details
+   - Create a `.env.local` file in the root directory
+   - Add your Firebase configuration:
+   ```
+   REACT_APP_FIREBASE_API_KEY=your-api-key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+   REACT_APP_FIREBASE_DATABASE_URL=your-database-url
+   REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+   REACT_APP_FIREBASE_APP_ID=your-app-id
+   ```
 
 5. Start the development server:
    ```
@@ -110,4 +119,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📧 Contact
 
-For questions or support, please reach out to support@blogapp.com. 
+For questions or support, please reach out to support@blogapp.com.
