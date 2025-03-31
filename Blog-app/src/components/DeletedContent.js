@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebaseConfig';
 
 const DeletedContent = () => {
   const [deletedUsers, setDeletedUsers] = useState([]);
@@ -82,6 +84,11 @@ const DeletedContent = () => {
     setShowConfirmModal(true);
   };
 
+  const handleAction = async (item, action) => {
+    setSelectedItem({ item, action });
+    setShowConfirmModal(true);
+  };
+
   const executeAction = async () => {
     if (!selectedItem) return;
     
@@ -90,20 +97,31 @@ const DeletedContent = () => {
     try {
       setLoading(true);
       
-      if (activeTab === 'users') {
-        if (action === 'restore') {
+      if (action === 'restore') {
+        if (activeTab === 'users') {
           await restoreUser(item.id);
           setSuccessMessage(`User ${item.email} has been restored successfully.`);
-        } else if (action === 'delete') {
-          await permanentlyDeleteUser(item.id);
-          setSuccessMessage(`User ${item.email} has been permanently deleted.`);
-        }
-      } else {
-        if (action === 'restore') {
+          // Show the additional alert with instructions for password reset
+          alert(
+            "User has been restored successfully.\n\n" +
+            "IMPORTANT: Please inform the user to reset their password using the 'Forgot Password' " +
+            "option before attempting to log in. Their previous password may not work due to the " +
+            "restoration process."
+          );
+        } else {
           await restorePost(item.id);
           setSuccessMessage(`Post "${item.title}" has been restored successfully.`);
-        } else if (action === 'delete') {
-          await permanentlyDeletePost(item.id);
+        }
+      } else if (action === 'delete') {
+        if (activeTab === 'users') {
+          // Use the getDeletedUsers and deleteDoc function
+          const deletedUserRef = doc(db, 'deleted_users', item.id);
+          await deleteDoc(deletedUserRef);
+          setSuccessMessage(`User ${item.email} has been permanently deleted.`);
+        } else {
+          // Use the getDeletedPosts and deleteDoc function
+          const deletedPostRef = doc(db, 'deleted_posts', item.id);
+          await deleteDoc(deletedPostRef);
           setSuccessMessage(`Post "${item.title}" has been permanently deleted.`);
         }
       }

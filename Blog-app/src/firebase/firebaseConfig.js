@@ -3,15 +3,15 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Firebase configuration using only environment variables
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID
+  apiKey: "AIzaSyA8xGqT7XU1CHFX0EPegIlRrTz6-3bBVm8",
+  authDomain: "authentication-app-dc9ac.firebaseapp.com",
+  databaseURL: "https://authentication-app-dc9ac-default-rtdb.firebaseio.com",
+  projectId: "authentication-app-dc9ac",
+  storageBucket: "authentication-app-dc9ac.firebasestorage.app",
+  messagingSenderId: "1054197026602",
+  appId: "1:1054197026602:web:8d8b401f9dd47af8af5853"
 };
 
 // Initialize Firebase

@@ -5,7 +5,7 @@ import { db } from '../firebase/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const MyProfile = () => {
-  const { currentUser, loading: authLoading, updateUserProfile, deleteMyAccount, userPermissions } = useAuth();
+  const { currentUser, loading: authLoading, deleteMyAccount, userPermissions } = useAuth();
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -55,21 +55,37 @@ const MyProfile = () => {
             // Check if it's a Firebase timestamp
             if (data.createdAt.toDate) {
               formattedDate = new Date(data.createdAt.toDate()).toLocaleDateString();
-            } else if (data.createdAt) {
-              // Handle string or number timestamp
+              console.log("Firebase timestamp date:", formattedDate);
+            } else if (typeof data.createdAt === 'string') {
+              // Handle string timestamp
               formattedDate = new Date(data.createdAt).toLocaleDateString();
+              console.log("String date:", formattedDate);
+            } else if (typeof data.createdAt === 'number') {
+              // Handle numeric timestamp
+              formattedDate = new Date(data.createdAt).toLocaleDateString();
+              console.log("Numeric date:", formattedDate);
+            } else {
+              console.log("Unknown date format:", data.createdAt);
             }
+          } else {
+            console.log("No createdAt timestamp found");
           }
           
+          // Ensure name and mobile are never undefined or null
+          const name = data.name || '';
+          const mobile = data.mobile || '';
+          
+          console.log("Parsed user data - Name:", name, "Mobile:", mobile, "Created:", formattedDate);
+          
           setUserData({
-            name: data.name || '',
+            name: name,
             email: data.email || currentUser.email || '',
-            mobile: data.mobile || '',
+            mobile: mobile,
             createdAt: formattedDate
           });
           setEditData({
-            name: data.name || '',
-            mobile: data.mobile || ''
+            name: name,
+            mobile: mobile
           });
         } else {
           setError('User profile not found.');

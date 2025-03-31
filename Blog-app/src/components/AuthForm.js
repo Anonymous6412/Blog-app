@@ -69,6 +69,8 @@ const AuthForm = ({ isLogin }) => {
         setErrorMessage('Incorrect password. Please try again.');
       } else if (error.code === 'auth/too-many-requests') {
         setErrorMessage('Too many unsuccessful login attempts. Please try again later or reset your password.');
+      } else if (error.code === 'auth/invalid-credential') {
+        setErrorMessage('Invalid login credentials. If your account was recently restored, please use the "Forgot Password" link to reset your password before logging in.');
       } else {
         setErrorMessage('An error occurred. Please try again.');
       }

@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth } from '../firebase/firebaseConfig';
 import { 
   onAuthStateChanged, 
   createUserWithEmailAndPassword, 
@@ -10,7 +9,7 @@ import {
   EmailAuthProvider,
   signOut
 } from 'firebase/auth';
-import { db } from '../firebase/firebaseConfig';
+import { auth, db } from '../firebase/firebaseConfig';
 import { collection, addDoc, deleteDoc, doc, updateDoc, getDoc, setDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 
 const AuthContext = createContext();
@@ -161,6 +160,8 @@ export const AuthProvider = ({ children }) => {
   const registerUserWithEmailAndPassword = async (email, password, name, mobile) => {
     try {
       console.log("Starting registration for:", email);
+      console.log("User details - Name:", name, "Mobile:", mobile);
+      
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       setCurrentUser(userCredential.user);
       
@@ -178,7 +179,7 @@ export const AuthProvider = ({ children }) => {
       // Set creation timestamp
       const timestamp = serverTimestamp();
       
-      // Prepare user data
+      // Prepare user data with guaranteed values for name and mobile
       const userData = {
         email: email,
         name: name || '', // Ensure name is stored even if empty
@@ -201,6 +202,12 @@ export const AuthProvider = ({ children }) => {
       
       // Use setDoc directly to ensure the document is created with all fields
       await setDoc(userDocRef, userData);
+      
+      // Verify the data was stored correctly
+      const verifyDoc = await getDoc(userDocRef);
+      if (verifyDoc.exists()) {
+        console.log("Verified user data stored:", verifyDoc.data());
+      }
       
       // Log the registration
       await addActivityLog({
@@ -729,11 +736,17 @@ export const AuthProvider = ({ children }) => {
       // Prepare the user data for restoration
       const { deletedBy, deletedByEmail, deletedAt, deletionReason, originalId, ...cleanUserData } = userData;
       
+      // Create an explanation for the admin about the restoration process
+      console.log("IMPORTANT: To complete user restoration, please inform the user that they need to use the 'Forgot Password' option to reset their password before logging in. The user's account in Firebase Auth might need to be recreated by the user.");
+      
       // Restore the user document to the users collection with the original ID
       const userRef = doc(db, 'users', userData.originalId);
       
       await setDoc(userRef, {
         ...cleanUserData,
+        name: userData.name || '',  // Ensure name is never null or undefined
+        mobile: userData.mobile || '',  // Ensure mobile is never null or undefined
+        createdAt: userData.createdAt || serverTimestamp(), // Preserve original creation date
         restoredAt: serverTimestamp(),
         restoredBy: currentUser.uid,
         emailVerified: true // Set email as verified to allow immediate login
