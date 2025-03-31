@@ -1,20 +1,24 @@
-/* Global Styles (global.css) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Global Styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f9;
-  color: #333;
-  line-height: 1.6;
-}
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    @apply bg-gray-50 text-gray-800;
+    line-height: 1.6;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto', sans-serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
 .container {
